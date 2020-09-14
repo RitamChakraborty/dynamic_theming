@@ -3,12 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(Wrapper());
+}
+
+class Wrapper extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MyApp();
+  }
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final ThemeMode themeMode = ThemeMode.dark;
+
     return MaterialApp(
       theme: ThemeData(
         brightness: Brightness.light,
@@ -24,7 +33,7 @@ class MyApp extends StatelessWidget {
         backgroundColor: Colors.grey.shade800,
         dividerColor: Colors.black45,
       ),
-      themeMode: ThemeMode.light,
+      themeMode: themeMode,
       home: HomePage(),
     );
   }
