@@ -1,81 +1,64 @@
+import 'package:dynamic_theming/pages/content.dart';
 import 'package:flutter/material.dart';
-import 'package:dynamic_theming/theme/app_theme.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final AppTheme _currentTheme = AppTheme.SYSTEM;
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
         brightness: Brightness.light,
+        primaryColor: Colors.purple,
+        accentColor: Colors.pinkAccent,
+        backgroundColor: Colors.grey.shade100,
+        dividerColor: Colors.white54,
       ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
+        primaryColor: Colors.orange,
+        accentColor: Colors.lightBlueAccent,
+        backgroundColor: Colors.grey.shade800,
+        dividerColor: Colors.black45,
       ),
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.light,
       home: HomePage(),
     );
   }
 }
 
 class HomePage extends StatelessWidget {
-  final AppTheme _currentAppTheme = AppTheme.SYSTEM;
-
   @override
   Widget build(BuildContext context) {
+    Color color = Theme.of(context).backgroundColor;
+
     return Material(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text("Dynamic Theming"),
-          actions: [
-            PopupMenuButton<AppTheme>(
-              itemBuilder: (BuildContext context) {
-                return <PopupMenuItem<AppTheme>>[
-                  PopupMenuItem(
-                    value: AppTheme.LIGHT,
-                    child: RadioListTile(
-                      value: AppTheme.LIGHT,
-                      onChanged: (AppTheme theme) {},
-                      groupValue: _currentAppTheme,
-                      title: Text("Light Theme"),
-                    ),
-                  ),
-                  PopupMenuItem(
-                    value: AppTheme.DARK,
-                    child: RadioListTile(
-                      value: AppTheme.DARK,
-                      onChanged: (AppTheme theme) {},
-                      groupValue: _currentAppTheme,
-                      title: Text("Dark Theme"),
-                    ),
-                  ),
-                  PopupMenuItem(
-                    value: AppTheme.SYSTEM,
-                    child: RadioListTile(
-                      value: AppTheme.SYSTEM,
-                      onChanged: (AppTheme theme) {},
-                      groupValue: _currentAppTheme,
-                      title: Text("System Default"),
-                    ),
-                  ),
-                ];
-              },
-              child: Icon(Icons.more_vert),
+        floatingActionButton: SpeedDial(
+          animatedIcon: AnimatedIcons.menu_close,
+          overlayColor: color,
+          children: [
+            SpeedDialChild(
+              child: Icon(Icons.brightness_7),
+              label: "Light Theme",
+              labelBackgroundColor: color,
+            ),
+            SpeedDialChild(
+              child: Icon(Icons.brightness_3),
+              label: "Dark Theme",
+              labelBackgroundColor: color,
+            ),
+            SpeedDialChild(
+              child: Icon(Icons.settings_applications),
+              label: "System Default",
+              labelBackgroundColor: color,
             ),
           ],
         ),
-        body: Container(
-          alignment: Alignment.center,
-          child: Text(
-            _currentAppTheme.toString(),
-            style: Theme.of(context).textTheme.headline6,
-          ),
-        ),
+        body: Content(),
       ),
     );
   }
