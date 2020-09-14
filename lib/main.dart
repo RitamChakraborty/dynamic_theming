@@ -1,6 +1,8 @@
 import 'package:dynamic_theming/pages/content.dart';
+import 'package:dynamic_theming/provider/ThemeProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(Wrapper());
@@ -9,14 +11,18 @@ void main() {
 class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MyApp();
+    return ChangeNotifierProvider<ThemeProvider>.value(
+      value: ThemeProvider(),
+      child: MyApp(),
+    );
   }
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final ThemeMode themeMode = ThemeMode.dark;
+    final ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
+    final ThemeMode themeMode = themeProvider.themeMode;
 
     return MaterialApp(
       theme: ThemeData(
@@ -42,6 +48,7 @@ class MyApp extends StatelessWidget {
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
     Color color = Theme.of(context).backgroundColor;
 
     return Material(
@@ -54,16 +61,25 @@ class HomePage extends StatelessWidget {
               child: Icon(Icons.brightness_7),
               label: "Light Theme",
               labelBackgroundColor: color,
+              onTap: () {
+                themeProvider.changeTheme(ThemeMode.light);
+              },
             ),
             SpeedDialChild(
               child: Icon(Icons.brightness_3),
               label: "Dark Theme",
               labelBackgroundColor: color,
+              onTap: () {
+                themeProvider.changeTheme(ThemeMode.dark);
+              },
             ),
             SpeedDialChild(
               child: Icon(Icons.settings_applications),
               label: "System Default",
               labelBackgroundColor: color,
+              onTap: () {
+                themeProvider.changeTheme(ThemeMode.system);
+              },
             ),
           ],
         ),
