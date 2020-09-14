@@ -9,11 +9,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_speed_dial: ^1.2.5
+  flutter_bloc: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_speed_dial: ^1.2.5
 
 flutter:
   uses-material-design: true
