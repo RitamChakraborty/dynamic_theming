@@ -12,7 +12,7 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: ThemeBloc(),
+      value: ThemeCubit(),
       child: MyApp(),
     );
   }
@@ -22,10 +22,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder(
-        cubit: BlocProvider.of<ThemeBloc>(context),
-        builder: (BuildContext context, AbstractThemeBlocState state) {
-          ThemeMode themeMode = state.themeMode;
-
+        cubit: BlocProvider.of<ThemeCubit>(context),
+        builder: (BuildContext context, ThemeMode themeMode) {
           return MaterialApp(
             theme: ThemeData(
               brightness: Brightness.light,
@@ -51,14 +49,12 @@ class MyApp extends StatelessWidget {
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ThemeBloc themeBloc = BlocProvider.of<ThemeBloc>(context);
-    Color color = Theme
-        .of(context)
-        .backgroundColor;
+    ThemeCubit themeCubit = context.bloc<ThemeCubit>();
+    Color color = Theme.of(context).backgroundColor;
 
-    return BlocBuilder<ThemeBloc, AbstractThemeBlocState>(
-        cubit: themeBloc,
-        builder: (BuildContext context, AbstractThemeBlocState state) {
+    return BlocBuilder<ThemeCubit, ThemeMode>(
+        cubit: themeCubit,
+        builder: (BuildContext context, ThemeMode themeMode) {
           return Material(
             child: Scaffold(
               floatingActionButton: SpeedDial(
@@ -70,7 +66,7 @@ class HomePage extends StatelessWidget {
                       label: "Light Theme",
                       labelBackgroundColor: color,
                       onTap: () {
-                        themeBloc.add(ThemeMode.light);
+                        themeCubit.changeTheme(ThemeMode.light);
                       }
                   ),
                   SpeedDialChild(
@@ -78,7 +74,7 @@ class HomePage extends StatelessWidget {
                       label: "Dark Theme",
                       labelBackgroundColor: color,
                       onTap: () {
-                        themeBloc.add(ThemeMode.dark);
+                        themeCubit.changeTheme(ThemeMode.dark);
                       }
                   ),
                   SpeedDialChild(
@@ -86,7 +82,7 @@ class HomePage extends StatelessWidget {
                       label: "System Default",
                       labelBackgroundColor: color,
                       onTap: () {
-                        themeBloc.add(ThemeMode.system);
+                        themeCubit.changeTheme(ThemeMode.system);
                       }
                   ),
                 ],
