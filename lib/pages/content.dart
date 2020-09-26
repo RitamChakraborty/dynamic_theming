@@ -12,7 +12,7 @@ class Content extends StatelessWidget {
 
   final _address = InfoCardWidget(
     label: "Address",
-    text: "Minapore, West Bengal, India",
+    text: "Minapore, India",
     icon: Icons.map,
   );
 
@@ -28,23 +28,18 @@ class Content extends StatelessWidget {
     icon: Icons.email,
   );
 
-
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
 
     final backgroundPicture = Container(
       height: size.height * 0.5,
       decoration: BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: Image
-              .asset(
+          image: Image.asset(
             "images/wallpaper.jpg",
-          )
-              .image,
+          ).image,
         ),
       ),
     );
@@ -60,6 +55,17 @@ class Content extends StatelessWidget {
           color: Theme
               .of(context)
               .canvasColor,
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(-5, -5),
+              color: Theme
+                  .of(context)
+                  .shadowColor
+                  .withOpacity(0.3),
+              blurRadius: 10,
+              spreadRadius: 3,
+            ),
+          ],
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(16.0),
             topRight: Radius.circular(16.0),
@@ -108,7 +114,7 @@ class Content extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           _name,
-          SizedBox(height: 16,),
+          SizedBox(height: 16),
           _profession,
         ],
       ),
@@ -119,10 +125,10 @@ class Content extends StatelessWidget {
       child: Stack(
         fit: StackFit.loose,
         children: [
-        backgroundPicture,
-        cards,
-        avatar,
-        texts,
+          backgroundPicture,
+          cards,
+          avatar,
+          texts,
         ],
       ),
     );

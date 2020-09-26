@@ -57,40 +57,44 @@ class HomePage extends StatelessWidget {
     Color color = Theme.of(context).backgroundColor;
 
     return BlocBuilder<ThemeCubit, ThemeMode>(
-        cubit: themeCubit,
-        builder: (BuildContext context, ThemeMode themeMode) {
-          return Material(
-            child: Scaffold(
-              floatingActionButton: SpeedDial(
-                animatedIcon: AnimatedIcons.menu_close,
-                overlayColor: color,
-                children: [
-                  SpeedDialChild(
-                      child: Icon(Icons.brightness_7),
-                      label: "Light Theme",
-                      labelBackgroundColor: color,
-                      onTap: () {
-                        themeCubit.changeTheme(ThemeMode.light);
-                      }),
-                  SpeedDialChild(
-                      child: Icon(Icons.brightness_3),
-                      label: "Dark Theme",
-                      labelBackgroundColor: color,
-                      onTap: () {
-                        themeCubit.changeTheme(ThemeMode.dark);
-                      }),
-                  SpeedDialChild(
-                      child: Icon(Icons.settings_applications),
-                      label: "System Default",
-                      labelBackgroundColor: color,
-                      onTap: () {
-                        themeCubit.changeTheme(ThemeMode.system);
-                      }),
-                ],
-              ),
-              body: Content(),
+      cubit: themeCubit,
+      builder: (BuildContext context, ThemeMode themeMode) {
+        return Material(
+          child: Scaffold(
+            floatingActionButton: SpeedDial(
+              animatedIcon: AnimatedIcons.menu_close,
+              overlayColor: color,
+              children: [
+                SpeedDialChild(
+                  child: Icon(Icons.brightness_7),
+                  label: "Light Theme",
+                  labelBackgroundColor: color,
+                  onTap: () {
+                    themeCubit.changeTheme(ThemeMode.light);
+                  },
+                ),
+                SpeedDialChild(
+                  child: Icon(Icons.brightness_3),
+                  label: "Dark Theme",
+                  labelBackgroundColor: color,
+                  onTap: () {
+                    themeCubit.changeTheme(ThemeMode.dark);
+                  },
+                ),
+                SpeedDialChild(
+                  child: Icon(Icons.settings_applications),
+                  label: "System Default",
+                  labelBackgroundColor: color,
+                  onTap: () {
+                    themeCubit.changeTheme(ThemeMode.system);
+                  },
+                ),
+              ],
             ),
-          );
-        });
+            body: Content(),
+          ),
+        );
+      },
+    );
   }
 }
