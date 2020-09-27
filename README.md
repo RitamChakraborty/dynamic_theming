@@ -1,3 +1,3 @@
-# Dynamic Themingy
+# Dynamic Theming
 
 Dynamic theming in flutter application.
