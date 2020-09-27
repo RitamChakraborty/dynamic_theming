@@ -52,16 +52,11 @@ class Content extends StatelessWidget {
         alignment: Alignment.center,
         padding: EdgeInsets.only(top: size.height * 0.1),
         decoration: BoxDecoration(
-          color: Theme
-              .of(context)
-              .canvasColor,
+          color: Theme.of(context).canvasColor,
           boxShadow: [
             BoxShadow(
               offset: Offset(-5, -5),
-              color: Theme
-                  .of(context)
-                  .shadowColor
-                  .withOpacity(0.3),
+              color: Theme.of(context).shadowColor.withOpacity(0.3),
               blurRadius: 10,
               spreadRadius: 3,
             ),
@@ -94,9 +89,7 @@ class Content extends StatelessWidget {
             width: size.height * 0.2,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: Image
-                    .asset("images/profile_picture.jpeg")
-                    .image,
+                image: Image.asset("images/profile_picture.jpeg").image,
               ),
             ),
           ),
